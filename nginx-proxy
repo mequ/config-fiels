@@ -33,4 +33,23 @@ server {
 	listen 80 default_server;
 	server_name mirror.fuel-infra.org;
 
+#	location /fwm/6.1/ {
+#		autoindex on;
+#		root /var/www/html/;
+#	}
+
+#	location /mos/ubuntu/ {
+#		autoindex on;
+#		root /var/www/html/;
+#	}
+
+	location / {
+		proxy_cache backcache;
+		proxy_cache_revalidate on;
+		#add_header X-Proxy-Cache $upstream_cache_status;
+		#proxy_cache_key $uri;
+		proxy_pass http://mirror.fuel-infra.org;
+	}
+
+}
 
